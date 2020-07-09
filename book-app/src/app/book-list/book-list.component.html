@@ -1,0 +1,52 @@
+<div class="row">
+  <h2>Book List</h2>
+</div>
+  <div class="row">
+  <ul>
+    <li *ngFor ="let book of books" (click)="onSelect(book)" class="list-group list-group-horizontal">
+      <div class="list-group-item">
+      <p>{{book.name}}</p>
+      <hr>
+      <p>{{book.year}}</p>
+    </div>
+    </li>
+  </ul>
+</div>
+
+
+<div *ngIf="selectedBook" class="row">
+  <div class="col-6">
+    <h3>Reviews for {{selectedBook.name}}</h3>
+  <li *ngFor ="let review of selectedBook.reviews">
+    <p>{{review.email}}</p>
+    <p>{{review.note}}</p>
+    <p>{{review.star}}</p>
+  </li>
+  </div>
+  <div class="col-6">
+    <form [formGroup] = 'inputForm' (ngSubmit)="onSubmit(inputForm.value)">
+      <div>
+        <label for="email">
+          E-mail
+        </label>
+        <input id="email" type="email" formControlName="email">
+      </div>
+      <div>
+        <label for="note">
+          Note
+        </label>
+        <input id="note" type="text" formControlName="note">
+      </div>
+      <div>
+        <label for="star">
+          Rating
+        </label>
+        <select id="star" formControlName="star">
+            <option *ngFor= "let number of [1,2,3,4,5]">{{number}}</option>
+        </select>
+      </div>
+      <button class="button" type="submit">Submit</button>
+      </form>
+  </div>
+
+</div>
